@@ -52,3 +52,25 @@ python3 -m http.server 8791 --bind 127.0.0.1
 [v0.1 讨论纪要](串串店拍照数签小程序_讨论纪要与阶段方案_v0.1_2026-10-16.md)保留原文。v0.2 补充易用性与研发设计；v0.3 补充运营、后台、软件收费和数据生命周期，并单列增量计划。
 
 状态含义：**已确认**来自用户明确指令；**设计建议**可用于评审与规划；**待实测**需要证据才能承诺。后续决策先更新 00，再同步受影响的文档与 HTML，避免多份口径不一致。
+
+## 前端工程底座
+
+2026-10-20 起，`apps/miniapp/` 提供原生微信小程序 TypeScript 工程底座；原有 `docs/` 与 `prototype/` 保持为产品、交互和验收事实源。当前只包含应用壳和首页，不表示拍摄、识别、微信身份、业务 API 或商业功能已实现。
+
+工程入口：
+
+- [前端架构](ARCHITECTURE.md)
+- [工程代码规范](engineering-standards.md)
+- [协作与交付规范](CONTRIBUTING.md)
+- [安装、构建与微信开发者工具导入](docs/architecture-bootstrap.md)
+
+在本目录执行：
+
+```bash
+corepack enable
+pnpm install --frozen-lockfile
+pnpm build
+pnpm verify
+```
+
+构建输出位于 `apps/miniapp/dist/` 且不提交。自动化验证不能替代微信开发者工具和真机测试；对应边界与设备矩阵仍以 [06｜测试与验收计划](docs/06-测试与验收计划.md) 为准。

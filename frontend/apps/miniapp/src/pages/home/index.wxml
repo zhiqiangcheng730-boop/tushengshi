@@ -1,0 +1,12 @@
+<view class="page-shell">
+  <view class="hero-card">
+    <text class="eyebrow">{{eyebrow}}</text>
+    <text class="title">{{title}}</text>
+    <text class="description">{{description}}</text>
+  </view>
+
+  <view class="status-card" role="status" aria-label="{{status}}">
+    <view class="status-dot" aria-hidden="true"></view>
+    <text>{{status}}</text>
+  </view>
+</view>

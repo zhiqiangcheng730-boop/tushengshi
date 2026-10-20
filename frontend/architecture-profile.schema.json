@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shudekuai.example/schemas/frontend-architecture-profile.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "project",
+    "toolchain",
+    "paths",
+    "apiContract",
+    "package",
+    "architecture",
+    "checks"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "tier", "runtimeTarget"],
+      "properties": {
+        "id": { "const": "shudekuai-miniapp" },
+        "tier": { "enum": ["small", "medium", "large"] },
+        "runtimeTarget": { "const": "wechat-mini-program" }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node", "pnpm"],
+      "properties": {
+        "node": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "pnpm": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "output", "projectConfig"],
+      "properties": {
+        "source": { "$ref": "#/$defs/safeRelativePath" },
+        "output": { "$ref": "#/$defs/safeRelativePath" },
+        "projectConfig": { "$ref": "#/$defs/safeRelativePath" }
+      }
+    },
+    "apiContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "artifact"],
+      "properties": {
+        "status": { "const": "planned" },
+        "artifact": { "type": "null" }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mainPackageMaxBytes", "runtimeAssetExtensions"],
+      "properties": {
+        "mainPackageMaxBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2097152
+        },
+        "runtimeAssetExtensions": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^\\.[a-z0-9]+$" }
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["remoteIoOwner", "generatedRoot"],
+      "properties": {
+        "remoteIoOwner": { "$ref": "#/$defs/safeRelativePath" },
+        "generatedRoot": { "$ref": "#/$defs/safeRelativePath" }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required"],
+      "properties": {
+        "required": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z]+(?::[a-z]+)*$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "safeRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    }
+  }
+}

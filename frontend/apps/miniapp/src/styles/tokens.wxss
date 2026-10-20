@@ -1,0 +1,21 @@
+page {
+  --color-surface-page: #f5f7f4;
+  --color-surface-card: #ffffff;
+  --color-surface-hero: #183d32;
+  --color-text-primary: #183d32;
+  --color-text-secondary: #68756d;
+  --color-text-inverse: #ffffff;
+  --color-text-hero-muted: #c7d9cd;
+  --color-border-subtle: #e1e7e1;
+  --color-status-ready: #c84b1d;
+  --font-size-caption: 22rpx;
+  --font-size-body: 28rpx;
+  --font-size-title: 56rpx;
+  --space-small: 16rpx;
+  --space-medium: 28rpx;
+  --space-section: 48rpx;
+  --space-page: 40rpx;
+  --radius-control: 24rpx;
+  --radius-card: 40rpx;
+  --shadow-card: 0 20rpx 48rpx rgba(24, 61, 50, 0.12);
+}

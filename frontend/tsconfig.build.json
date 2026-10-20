@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noEmit": false,
+    "outDir": "apps/miniapp/dist",
+    "rootDir": "apps/miniapp/src",
+    "sourceMap": false,
+    "types": ["miniprogram-api-typings"],
+    "verbatimModuleSyntax": false
+  },
+  "include": ["apps/miniapp/src/**/*.ts"],
+  "exclude": ["apps/miniapp/src/**/*.test.ts"]
+}

@@ -1,0 +1,43 @@
+schemaVersion: "1.0"
+project:
+  id: shudekuai-miniapp
+  tier: medium
+  runtimeTarget: wechat-mini-program
+toolchain:
+  node: 24.18.0
+  pnpm: 11.17.0
+paths:
+  source: apps/miniapp/src
+  output: apps/miniapp/dist
+  projectConfig: apps/miniapp/project.config.json
+apiContract:
+  status: planned
+  artifact: null
+package:
+  mainPackageMaxBytes: 2097152
+  runtimeAssetExtensions:
+    - .json
+    - .wxml
+    - .wxss
+    - .png
+    - .jpg
+    - .jpeg
+    - .gif
+    - .webp
+architecture:
+  remoteIoOwner: apps/miniapp/src/shared/http
+  generatedRoot: apps/miniapp/src/generated
+checks:
+  required:
+    - instructions:check
+    - profile:check
+    - toolchain:check
+    - format:check
+    - typecheck
+    - lint
+    - architecture:check
+    - cycle:check
+    - diagram:check
+    - test:coverage
+    - build
+    - security:check

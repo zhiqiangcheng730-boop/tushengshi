@@ -1,0 +1,9 @@
+node_modules/
+coverage/
+apps/miniapp/dist/
+apps/miniapp/project.private.config.json
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo

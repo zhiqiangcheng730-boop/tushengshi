@@ -1,0 +1,112 @@
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shudekuai-backend"
+version = "0.1.0"
+description = "数得快 FastAPI 后端服务底座"
+readme = "README.md"
+requires-python = "==3.13.14"
+dependencies = [
+  "alembic==1.20.0",
+  "asyncpg==0.32.0",
+  "fastapi==0.151.0",
+  "pydantic-settings==2.16.0",
+  "sqlalchemy[asyncio]==2.1.5",
+  "uvicorn==0.54.0",
+]
+
+[dependency-groups]
+dev = [
+  "httpx2==2.14.0",
+  "import-linter==2.15",
+  "jsonschema==4.26.0",
+  "mypy==2.4.0",
+  "pip-audit==2.10.1",
+  "pip-licenses==5.5.5",
+  "pytest==9.1.1",
+  "pytest-asyncio==1.4.0",
+  "pytest-cov==7.1.0",
+  "pyyaml==6.0.3",
+  "ruff==0.17.1",
+  "types-pyyaml==6.0.12.20260906",
+  "types-jsonschema==4.26.0.20261006",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/shudekuai_api", "src/shudekuai_contracts"]
+
+[tool.pytest.ini_options]
+addopts = ["--strict-config", "--strict-markers"]
+asyncio_mode = "auto"
+filterwarnings = ["error"]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["shudekuai_api", "shudekuai_contracts"]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["src", "tests", "scripts"]
+plugins = ["pydantic.mypy"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.format]
+quote-style = "double"
+line-ending = "lf"
+
+[tool.ruff.lint]
+ignore = ["RUF001", "RUF002"]
+select = [
+  "ANN",
+  "ARG",
+  "ASYNC",
+  "B",
+  "C4",
+  "C90",
+  "DTZ",
+  "E",
+  "ERA",
+  "F",
+  "I",
+  "N",
+  "PERF",
+  "PIE",
+  "PL",
+  "RUF",
+  "S",
+  "SIM",
+  "UP",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ANN201", "PLR2004", "S101", "S105"]
+
+[tool.importlinter]
+root_packages = ["shudekuai_api", "shudekuai_contracts"]
+
+[[tool.importlinter.contracts]]
+name = "共享契约不得依赖 API 实现"
+type = "forbidden"
+source_modules = ["shudekuai_contracts"]
+forbidden_modules = ["shudekuai_api"]
+
+[tool.pip-licenses]
+ignore-packages = ["shudekuai-backend"]
+fail-on = "AGPL-3.0-only;GPL-2.0-only;GPL-3.0-only;GNU Affero General Public License v3;GNU General Public License v2 (GPLv2);GNU General Public License v3 (GPLv3)"

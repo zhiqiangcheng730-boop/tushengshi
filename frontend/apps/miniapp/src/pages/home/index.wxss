@@ -1,0 +1,54 @@
+.page-shell {
+  min-height: 100vh;
+  padding: var(--space-page);
+  background: var(--color-surface-page);
+}
+
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-section);
+  color: var(--color-text-inverse);
+  background: var(--color-surface-hero);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-small);
+  color: var(--color-text-hero-muted);
+  font-size: var(--font-size-caption);
+  letter-spacing: 0.18em;
+}
+
+.title {
+  margin-bottom: var(--space-medium);
+  font-size: var(--font-size-title);
+  font-weight: 600;
+}
+
+.description {
+  color: var(--color-text-hero-muted);
+  font-size: var(--font-size-body);
+  line-height: 1.7;
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  min-height: 96rpx;
+  margin-top: var(--space-medium);
+  padding: 0 var(--space-medium);
+  color: var(--color-text-primary);
+  background: var(--color-surface-card);
+  border: 1rpx solid var(--color-border-subtle);
+  border-radius: var(--radius-control);
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  margin-right: var(--space-small);
+  background: var(--color-status-ready);
+  border-radius: 50%;
+}

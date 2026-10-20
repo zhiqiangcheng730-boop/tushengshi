@@ -1,0 +1,7 @@
+git diff --cached --check
+
+if git diff --cached --name-only --diff-filter=ACMR | grep -Eq '^(backend/|contracts/)'; then
+  make -C backend format-check lint typecheck profile-check architecture-check secret-check
+fi
+
+pnpm --dir frontend staged:check

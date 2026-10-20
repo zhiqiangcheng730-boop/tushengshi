@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shudekuai.example/schemas/backend-architecture-profile.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "project",
+    "toolchain",
+    "paths",
+    "architecture",
+    "checks"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "tier", "runtimeTarget"],
+      "properties": {
+        "id": { "const": "shudekuai-api" },
+        "tier": { "const": "medium" },
+        "runtimeTarget": { "const": "fastapi-service" }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "uv"],
+      "properties": {
+        "python": { "const": "3.13.14" },
+        "uv": { "const": "0.11.32" }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "sharedContracts", "migrations", "openapi"],
+      "properties": {
+        "source": { "$ref": "#/$defs/safePath" },
+        "sharedContracts": { "$ref": "#/$defs/safePath" },
+        "migrations": { "$ref": "#/$defs/safePath" },
+        "openapi": { "const": "../contracts/openapi.json" }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transport", "modules", "sharedContracts"],
+      "properties": {
+        "transport": { "const": "shudekuai_api.platform.http" },
+        "modules": { "const": "shudekuai_api.modules" },
+        "sharedContracts": { "const": "shudekuai_contracts" }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required"],
+      "properties": {
+        "required": {
+          "type": "array",
+          "minItems": 11,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z]+(?:-[a-z]+)*$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "safePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$"
+    }
+  }
+}

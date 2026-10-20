@@ -1,0 +1,30 @@
+schemaVersion: "1.0"
+project:
+  id: shudekuai-api
+  tier: medium
+  runtimeTarget: fastapi-service
+toolchain:
+  python: 3.13.14
+  uv: 0.11.32
+paths:
+  source: src/shudekuai_api
+  sharedContracts: src/shudekuai_contracts
+  migrations: migrations
+  openapi: ../contracts/openapi.json
+architecture:
+  transport: shudekuai_api.platform.http
+  modules: shudekuai_api.modules
+  sharedContracts: shudekuai_contracts
+checks:
+  required:
+    - format-check
+    - lint
+    - typecheck
+    - profile-check
+    - architecture-check
+    - test
+    - openapi-check
+    - dependency-check
+    - license-check
+    - secret-check
+    - package-check

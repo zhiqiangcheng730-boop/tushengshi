@@ -1,0 +1,14 @@
+{
+  "appid": "touristappid",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "dist/",
+  "projectname": "shudekuai-miniapp",
+  "setting": {
+    "compileHotReLoad": true,
+    "coverView": true,
+    "es6": true,
+    "minified": true,
+    "postcss": true,
+    "urlCheck": true
+  }
+}

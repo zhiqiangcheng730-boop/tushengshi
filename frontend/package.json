@@ -1,0 +1,68 @@
+{
+  "name": "shudekuai-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.17.0",
+  "engines": {
+    "node": "24.18.0",
+    "pnpm": "11.17.0"
+  },
+  "scripts": {
+    "dev": "pnpm build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false && tsc -p tsconfig.build.json --noEmit --pretty false",
+    "instructions:check": "node scripts/instructions-check.mjs",
+    "profile:check": "node scripts/profile-check.mjs",
+    "toolchain:check": "node scripts/toolchain-check.mjs",
+    "architecture:check": "node scripts/architecture-check.mjs",
+    "cycle:check": "depcruise --validate .dependency-cruiser.cjs apps/miniapp/src",
+    "diagram:check": "node scripts/diagram-check.mjs",
+    "commit:check": "git log -1 --format=%B | commitlint",
+    "commit:ci-check": "node scripts/commit-ci-check.mjs",
+    "commit:ready": "git diff --cached --check && pnpm staged:check",
+    "staged:check": "lint-staged",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage.enabled=true",
+    "build": "node scripts/build-miniapp.mjs && node scripts/bundle-budget.mjs",
+    "dependency:check": "pnpm audit --audit-level high --prod",
+    "license:check": "node scripts/license-check.mjs",
+    "secret:check": "node scripts/secret-check.mjs",
+    "security:check": "pnpm dependency:check && pnpm license:check && pnpm secret:check",
+    "verify": "pnpm instructions:check && pnpm profile:check && pnpm toolchain:check && pnpm install --frozen-lockfile && pnpm format:check && pnpm typecheck && pnpm lint && pnpm architecture:check && pnpm cycle:check && pnpm diagram:check && pnpm test:coverage && pnpm build && pnpm security:check",
+    "prepare": "cd .. && husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "@vitest/coverage-v8": "5.0.5",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "dependency-cruiser": "18.7.0",
+    "eslint": "10.13.0",
+    "eslint-plugin-import-x": "4.17.1",
+    "eslint-plugin-promise": "7.3.0",
+    "globals": "17.13.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
+    "miniprogram-api-typings": "5.2.3",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.0",
+    "vitest": "5.0.5",
+    "yaml": "2.9.1"
+  },
+  "lint-staged": {
+    "**/*.{ts,mts,cts}": [
+      "pnpm exec prettier --check",
+      "pnpm exec eslint --max-warnings=0 --no-warn-ignored"
+    ],
+    "**/*.{cjs,js,mjs,json,md,yaml,yml}": "pnpm exec prettier --check",
+    "*": "node scripts/staged-secret-check.mjs"
+  }
+}
