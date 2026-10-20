@@ -13,9 +13,10 @@
 
 ## 3. 提交信息
 
-Commit 遵循 Conventional Commits，并要求非空 scope，例如：
+Commit 遵循 Conventional Commits；scope 可省略，涉及明确模块时建议填写，例如：
 
 ```text
+fix: correct startup failure
 feat(miniapp): add capture page shell
 fix(build): preserve nested static assets
 docs(architecture): clarify storage boundary
@@ -26,8 +27,10 @@ docs(architecture): clarify storage boundary
 ## 4. 本地门禁
 
 - 开发中运行受影响测试和 `pnpm typecheck`、`pnpm lint`。
-- 提交前运行 `pnpm commit:ready`。
+- 提交前 Husky 会检查暂存区空白错误和潜在 Secret；后端变更只运行格式、Ruff 与 Secret 检查，前端变更只运行对应暂存文件的 Prettier、ESLint 与 Secret 检查。
+- 前端开发者需要手动复核暂存文件时运行 `pnpm commit:ready`。
 - 交付前运行权威命令 `pnpm verify`。
+- 类型、架构、覆盖率、依赖和构建等完整门禁继续由交付验证与 CI 执行，不因本地提交门禁精简而降低。
 - 微信能力、相机、授权、弱网、横竖屏、安全区和真机性能按 `docs/06-测试与验收计划.md` 留存设备与结果，不能用桌面单测代替。
 
 不得通过修改脚本、降低阈值、跳过测试或扩大 ignore 让失败消失。外部服务或真机条件阻塞时，完成其余门禁并在交付报告列出命令、错误和 owner 所需输入。
